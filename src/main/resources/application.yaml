@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: GPT_CRUD_USERS_CI_CD
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users_db
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  sql:
+    init:
+      mode: never
