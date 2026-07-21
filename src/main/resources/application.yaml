@@ -2,9 +2,10 @@ spring:
   application:
     name: GPT_CRUD_USERS_CI_CD
   datasource:
-    url: jdbc:postgresql://localhost:5432/users_db
+    url: jdbc:postgresql://localhost:15432/db
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
