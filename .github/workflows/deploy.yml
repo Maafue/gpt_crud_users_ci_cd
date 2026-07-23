@@ -48,7 +48,7 @@ jobs:
         run: |
           scp \
             -i ~/.ssh/deploy_key \
-            compose.yaml \
+            compose.yml \
             "$VPS_USER@$VPS_HOST:/home/deploy/app/compose.yml"
 
       - name: Deploy containers
