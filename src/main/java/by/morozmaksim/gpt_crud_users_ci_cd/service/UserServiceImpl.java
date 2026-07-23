@@ -1,18 +1,17 @@
 package by.morozmaksim.gpt_crud_users_ci_cd.service;
 
 import by.morozmaksim.gpt_crud_users_ci_cd.domain.User;
-import by.morozmaksim.gpt_crud_users_ci_cd.domain.exception.UserEmailExistsException;
+import by.morozmaksim.gpt_crud_users_ci_cd.domain.UserSpecifications;
 import by.morozmaksim.gpt_crud_users_ci_cd.domain.exception.ResourceNotFoundException;
+import by.morozmaksim.gpt_crud_users_ci_cd.domain.exception.UserEmailExistsException;
 import by.morozmaksim.gpt_crud_users_ci_cd.repository.UserRepository;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.CreateUserRequest;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.UpdateEmailUserRequest;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.UpdateUserRequest;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.UserResponse;
+import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.*;
 import by.morozmaksim.gpt_crud_users_ci_cd.web.mapper.user.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserSpecifications userSpecifications;
 
     @Override
     public UserResponse create(CreateUserRequest request) {
@@ -52,8 +52,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponse> getAll() {
-        return userMapper.toResponses(userRepository.findAll());
+    public Page<UserResponse> getAll(Pageable pageable, UserFilter filter) {
+        var specification = userSpecifications.fromFilter(filter);
+        Page<User> usersPage = userRepository.findAll(specification, pageable);
+        return usersPage.map(user -> userMapper.toResponse(user));
     }
 
     @Override

@@ -1,13 +1,12 @@
 package by.morozmaksim.gpt_crud_users_ci_cd.web.controller;
 
 import by.morozmaksim.gpt_crud_users_ci_cd.service.UserService;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.CreateUserRequest;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.UpdateEmailUserRequest;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.UpdateUserRequest;
-import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.UserResponse;
+import by.morozmaksim.gpt_crud_users_ci_cd.web.dto.user.*;
 import by.morozmaksim.gpt_crud_users_ci_cd.web.mapper.user.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,8 +42,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserResponse> getAll() {
-        return userService.getAll();
+    public Page<UserResponse> getAll(Pageable pageable, UserFilter filter) {
+        return userService.getAll(pageable, filter);
     }
 
     @DeleteMapping("/{id}")

@@ -10,7 +10,7 @@
     </parent>
     <groupId>by.morozmaksim</groupId>
     <artifactId>GPT_CRUD_USERS_CI_CD</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>GPT_CRUD_USERS_CI_CD</name>
     <description>GPT_CRUD_USERS_CI_CD</description>
     <url/>
