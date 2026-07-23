@@ -10,7 +10,6 @@ import by.morozmaksim.gpt_crud_users_ci_cd.web.mapper.user.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserResponse> getAll(Pageable pageable, UserFilter filter) {
         var specification = userSpecifications.fromFilter(filter);
-        Page<User> usersPage = userRepository.findAll(specification, pageable);
+        var usersPage = userRepository.findAll(specification, pageable);
         return usersPage.map(user -> userMapper.toResponse(user));
     }
 
